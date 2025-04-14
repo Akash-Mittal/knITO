@@ -8,6 +8,42 @@
 
 `knITO` enables modular design, prototyping, review, and rendering of knitwear product metadata for internal and customer-facing processes.
 
+```mermaid
+
+---
+config:
+  theme: neo-dark
+  look: handDrawn
+  layout: elk
+---
+flowchart TB
+ subgraph UI_Services["UI_Services"]
+        META_UI["meta-creater-ui - Internal Design Tool"]
+        KNITO_UI["knito-ui - External Configurator"]
+  end
+ subgraph Business_Backend["Business_Backend"]
+        META_DATA["meta-data-service"]
+        PRODUCT["product-service"]
+        RENDER["render-service - Blender + WASM"]
+        WORKFLOW["workflow-service - Collaboration + Roles"]
+        KNITTING["knitting-service - Generates Knitting Programs"]
+  end
+ subgraph Technical_Backend["Technical_Backend"]
+        AUTH["auth-service - SSO + Roles/Policies"]
+        NOTIFY["notification-service - Slack/Email/Messages"]
+  end
+    META_UI --> META_DATA & PRODUCT & AUTH
+    KNITO_UI --> META_DATA & WORKFLOW & RENDER & KNITTING & AUTH
+    WORKFLOW --> NOTIFY
+    PRODUCT --> META_DATA
+    RENDER --> META_DATA
+    KNITTING --> RENDER
+
+
+
+```
+
+
 ---
 
 ## Services
