@@ -45,21 +45,31 @@ flowchart TB
 
 ---
 
-## Services
+## 🧩 Services
 
-### 🧶 Product-Service
+### 🖥️ UI Services
+- **meta-creater-ui**  
+  UI for creating products and categories. Designed for internal design teams to manage product metadata.
 
-> Core backend for handling all product-related APIs and metadata.
+- **knito-ui**  
+  A modern JavaScript-based UI for designing versatile knitwear products using the system's metadata. Built for external customers and brand partners.
 
-**Sub-services:**
-- `meta-data-service` – Defines core product specifications like gauge, material, style, etc.
-- `product-service` – Manages creation, updates, and retrieval of product entities.
-- `category-service` – Manages product category taxonomy (e.g., Sweater, Vest, Hoodie).
+---
 
-**Technology Stack:** Spring Boot, Java
+### 🧠 Business Backend Services
+- **meta-data-service**  
+  A REST-based service that defines system-wide product metadata. Loads definitions into cache for high-speed access by other backend services.
 
-### 🧭 Workflow-Service
+- **product-service**  
+  Handles actual product definitions, tightly integrated with `meta-creater-ui`. Used internally to manage product versions and variations.
 
+- **render-service**  
+  Flagship service built on Blender and WebAssembly. Responsible for generating 3D product previews and visual prototypes.
+
+- **workflow-service**  
+  Orchestrates business flows between internal and external actors. Enables user collaboration, defines responsibilities, and handles approval workflows.
+  
+  
 > Manages the internal product lifecycle stages:
 - DRAFT
 - SOFT_PROTOTYPE (Image/Inventory Analysis)
@@ -95,31 +105,41 @@ flowchart LR
 
 ```
 
-### 🔐 Auth-Service
+---
 
-> Manages authentication and authorization across services.
+### 🛠️ Technical Backend Services
+- **auth-service**  
+  Provides authentication (login, SSO) and defines user roles and policies for secure access control.
 
-### 🔄 Orchestration-Service (Optional)
+- **notification-service**  
+  Manages notifications across the platform via Email, Slack, or in-app messages. Commonly used by `workflow-service` to update business stakeholders.
 
-> Coordinates multi-step flows between services (e.g., product creation → workflow initiation → render generation).
 
-### 🔔 Notification-Service
 
-> Sends internal and customer-facing notifications (email, Slack, push) on state transitions or feedback loops.
 
-### 🖼️ Render-Service
-
-> Uses Blender or other engines to generate 3D product previews from metadata.
-
-### 💻 UI-Service
-
-> Web frontend for product designers and internal stakeholders to:
-- Create product metadata
-- Upload images
-- Preview versions
-- View and manage workflow status
+- **knitting-service**  
+  Generates machine-readable knitting programs from designs created during the `prototype` and `review` stages. Outputs tailored instructions for knitting machines.
 
 ---
+
+### 🛠️ Technical Backend Services
+- **auth-service**  
+  Handles authentication (login, SSO) and defines user roles and policies for secure access control.
+
+- **notification-service**  
+  Messaging queue–based notification system used by `workflow-service` to notify business stakeholders via Email, Slack, or in-app messages. Built on a loosely coupled Pub/Sub model.
+
+- **proxy-service**  
+  Acts as a gateway (e.g., NGINX or AWS API Gateway). Forwards incoming requests to `auth-service` to validate tokens and fetch authorized roles.
+
+---
+
+### 🗄️ Database Layer
+- **MongoDB**  
+  Used to store digital assets, metadata documents, and render-specific configurations.
+
+- **MySQL / PostgreSQL**  
+  Used for structured application data like users, products, workflows, and audit trails.
 
 ## Sample Request/Response 
 
