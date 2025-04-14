@@ -9,38 +9,37 @@
 `knITO` enables modular design, prototyping, review, and rendering of knitwear product metadata for internal and customer-facing processes.
 
 ```mermaid
-
 ---
 config:
   theme: neo-dark
-  look: handDrawn
+  look: neo
   layout: elk
 ---
 flowchart TB
- subgraph UI_Services["UI_Services"]
-        META_UI["meta-creater-ui - Internal Design Tool"]
-        KNITO_UI["knito-ui - External Configurator"]
+ subgraph PROXY["Proxy_service"]
+        NGINX["nginx_loadbalancer"]
   end
- subgraph Business_Backend["Business_Backend"]
+ subgraph UI_Services["ui_Services"]
+        UI["ui"]
+        META_UI["meta-creater-ui - Internal Design Tool"]
+        KNITO_UI["knito-ui - for customers"]
+  end
+ subgraph Backend["backend"]
+        B["Backend"]
         META_DATA["meta-data-service"]
         PRODUCT["product-service"]
         RENDER["render-service - Blender + WASM"]
-        WORKFLOW["workflow-service - Collaboration + Roles"]
+        WORKFLOW["workflow-service"]
         KNITTING["knitting-service - Generates Knitting Programs"]
-  end
- subgraph Technical_Backend["Technical_Backend"]
         AUTH["auth-service - SSO + Roles/Policies"]
         NOTIFY["notification-service - Slack/Email/Messages"]
   end
-    META_UI --> META_DATA & PRODUCT & AUTH
-    KNITO_UI --> META_DATA & WORKFLOW & RENDER & KNITTING & AUTH
-    WORKFLOW --> NOTIFY
-    PRODUCT --> META_DATA
-    RENDER --> META_DATA
-    KNITTING --> RENDER
-
-
-
+ subgraph Data_Base["Database Layer"]
+        DB["DB"]
+        MONGO(("MongoDB"))
+        MYSQL[("MySQL")]
+  end
+   NGINX --> UI --> B --> DB
 ```
 
 
