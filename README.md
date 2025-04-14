@@ -194,4 +194,40 @@ flowchart LR
 }
 ```
 
+Possible Users 
 
+Designers
+Knit Developers
+Production Manager
+Engineers
+
+
+Infrastructure
+
+Current State - need to be discussed.
+100% Cloud 
+dev(local-machine)-staging-UAT/Demo(aws-cloud)-prod(aws-cloud)
+50% AWS Cloud Production
+dev(local-machine)-staging-UAT/Demo(cloud machine on rent - hetzner)-prod(aws-cloud)
+Private cloud - openstack based
+
+
+Hybrid cloud setup - based on openshift 
+
+
+```mermaid
+graph LR
+
+
+  A[Dev - Local Machine] -->|Git Push| B[CI/CD Pipeline]
+  B --> C[UAT - Hetzner Cloud]
+  C -->|Tested + Approved|D[Prod - AWS Cloud]
+
+  subgraph Environments
+    A
+    C
+    D
+  end
+
+  B --> E[Docker Image Registry] --> C
+```
