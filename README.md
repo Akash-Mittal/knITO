@@ -109,37 +109,34 @@ flowchart LR
 
 ### 🛠️ Technical Backend Services
 - **auth-service**  
-  Provides authentication (login, SSO) and defines user roles and policies for secure access control.
+  This service takes care of authentication, including login and single sign-on (SSO), while also defining user roles and policies to ensure secure access control.
 
 - **notification-service**  
-  Manages notifications across the platform via Email, Slack, or in-app messages. Commonly used by `workflow-service` to update business stakeholders.
-
-
-
+  This service manages notifications throughout the platform, sending updates via Email, Slack, or in-app messages. It’s often utilized by the `workflow-service` to keep business stakeholders informed.
 
 - **knitting-service**  
-  Generates machine-readable knitting programs from designs created during the `prototype` and `review` stages. Outputs tailored instructions for knitting machines.
+  This service creates machine-readable knitting programs based on designs developed during the `prototype` and `review` phases. It produces customized instructions for knitting machines.
 
 ---
 
 ### 🛠️ Technical Backend Services
 - **auth-service**  
-  Handles authentication (login, SSO) and defines user roles and policies for secure access control.
+  This service is responsible for handling authentication, including login and SSO, while also defining user roles and policies to maintain secure access control.
 
 - **notification-service**  
-  Messaging queue–based notification system used by `workflow-service` to notify business stakeholders via Email, Slack, or in-app messages. Built on a loosely coupled Pub/Sub model.
+  A messaging queue-based notification system that the `workflow-service` uses to alert business stakeholders through Email, Slack, or in-app messages. It’s built on a loosely coupled Pub/Sub model.
 
 - **proxy-service**  
-  Acts as a gateway (e.g., NGINX or AWS API Gateway). Forwards incoming requests to `auth-service` to validate tokens and fetch authorized roles.
+  This service functions as a gateway, like NGINX or AWS API Gateway, forwarding incoming requests to the `auth-service` to validate tokens and retrieve authorized roles.
 
 ---
 
 ### 🗄️ Database Layer
 - **MongoDB**  
-  Used to store digital assets, metadata documents, and render-specific configurations.
+  This database is used to store digital assets, metadata documents, and configurations specific to rendering.
 
 - **MySQL / PostgreSQL**  
-  Used for structured application data like users, products, workflows, and audit trails.
+  These databases are utilized for structured application data, including users, products, workflows, and audit trails.
 
 ## Sample Request/Response 
 
